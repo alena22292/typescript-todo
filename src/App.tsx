@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,8 +12,19 @@ import { TodoList } from './components/TodoList'
 
 import { ITodo } from './interfaces'
 
+declare var confirm: (question: string) => boolean
+
 const App:React.FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([])
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('todos') || '[]') as ITodo[]
+    setTodos(saved)
+  }, [])
+
+  useEffect(() => {
+   localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
 
   const addHandler = (title: string) => {
     const newTodo: ITodo = {
@@ -40,7 +51,10 @@ const App:React.FC = () => {
   }
 
   const removeHandler = (id: number) => {
-     setTodos(prev=>prev.filter(todo=>todo.id !== id))
+     const shouldRemove = confirm("Are you sure you want to delete this task?")
+     if (shouldRemove) {
+       setTodos(prev=>prev.filter(todo=>todo.id !== id))
+     }
   }
 
   return (
