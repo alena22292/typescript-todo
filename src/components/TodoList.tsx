@@ -3,7 +3,7 @@ import { ITodo } from '../interfaces'
 
 type TodoListProps = {
 	todos: ITodo[]
-	onToggle(id: number): void
+	onToggle(event: React.FormEvent<HTMLInputElement>, id: number): void
 	onRemove(id: number): void
 }
 
@@ -18,10 +18,10 @@ export const TodoList: React.FC<TodoListProps> = ({ todos, onToggle, onRemove })
 		onRemove(id)
 	}
 
-	const toggleHandler = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
-		console.log(event.target.checked);
-		onToggle(id)
-	}
+	// const toggleHandler = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
+	// 	console.log(event.target.checked);
+	// 	onToggle(id)
+	// }
 
   return (
   	<ul>
@@ -34,8 +34,8 @@ export const TodoList: React.FC<TodoListProps> = ({ todos, onToggle, onRemove })
 
   		return (
   			<li className={classes.join(' ')} key={todo.id}>
-	  			<label htmlFor="">
-	  				<input type="checkbox" checked={todo.completed} onChange={(event) => toggleHandler(event, todo.id)} />
+	  			<label htmlFor="checkbox">
+	  				<input type="checkbox" id="checkbox" checked={todo.completed} onChange={(event) => onToggle(event, todo.id)} />
 	  				<span>{todo.title}</span>
 	  				<i 
 	  				  className="material-icons red-text" 

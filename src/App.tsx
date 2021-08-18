@@ -37,7 +37,7 @@ const App:React.FC = () => {
 
   // This functions belog to TodoList
 
-  const toggleHandler = (id: number) => {
+  const toggleHandler = (event: React.FormEvent<HTMLInputElement>, id: number) => {
     setTodos(prev =>
       prev.map(todo => {
       if (todo.id === id) {

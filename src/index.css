@@ -46,3 +46,7 @@ code {
 .todo i {
   z-index:  2;
 }
+
+#checkbox {
+  z-index:  2;
+}
